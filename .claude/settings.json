@@ -1,0 +1,69 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/**)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(git ls-files*)",
+      "Bash(git rev-parse*)",
+      "Bash(git branch --show-current)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git stash push*)",
+      "Bash(git stash pop*)",
+      "Bash(git stash list*)",
+      "Bash(dotnet build*)",
+      "Bash(dotnet test*)",
+      "Bash(dotnet run*)",
+      "Bash(dotnet restore*)",
+      "Bash(dotnet --*)",
+      "Bash(curl *http://localhost*)",
+      "Bash(curl *http://127.0.0.1*)",
+      "Bash(node *guard.test.mjs)",
+      "Bash(sleep *)",
+      "Bash(mkdir -p *)",
+      "PowerShell(git status*)",
+      "PowerShell(git diff*)",
+      "PowerShell(git log*)",
+      "PowerShell(git show*)",
+      "PowerShell(git add *)",
+      "PowerShell(git commit *)",
+      "PowerShell(dotnet build*)",
+      "PowerShell(dotnet test*)",
+      "PowerShell(dotnet run*)",
+      "PowerShell(Invoke-WebRequest *http://localhost*)",
+      "PowerShell(node *guard.test.mjs)"
+    ],
+    "deny": [
+      "Edit(/.claude/**)",
+      "Edit(/.git/**)",
+      "Bash(git push*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean*)",
+      "Bash(git rebase*)",
+      "Bash(git commit --amend*)",
+      "Bash(rm -rf *)",
+      "PowerShell(git push*)",
+      "PowerShell(git reset --hard*)",
+      "PowerShell(git clean*)",
+      "PowerShell(Remove-Item *-Recurse*)",
+      "WebFetch",
+      "WebSearch"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard.mjs\""
+          }
+        ]
+      }
+    ]
+  }
+}
